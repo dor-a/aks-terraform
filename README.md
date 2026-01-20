@@ -2,21 +2,7 @@
 
 **Module 3 - All Projects**
 
-This repository contains all Terraform projects for Module 3 at Cybersteps.
-
-## Project Structure
-
-```
-week-5/
-└── session-2-advanced-k8s/
-    └── terraform/
-        ├── main.tf
-        ├── variables.tf
-        ├── outputs.tf
-        ├── provider.tf
-        ├── terraform.tfvars
-        └── README.md
-```
+This repository contains all projects & demos for Module 3 at Cybersteps.
 
 ## Projects
 
