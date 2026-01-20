@@ -1,5 +1,7 @@
 # AKS Terraform
 
+**Week 5 Session 2 - Advanced K8S | Cybersteps**
+
 This repository contains Terraform configuration for deploying an Azure Kubernetes Service (AKS) cluster on Microsoft Azure.
 
 ## Overview
@@ -82,14 +84,15 @@ kubectl get nodes
 
 ## Variables
 
-| Variable          | Type   | Default         | Description                                                    |
-| ----------------- | ------ | --------------- | -------------------------------------------------------------- |
-| `location`        | string | -               | Azure region for resources (e.g., "East US", "West Europe")    |
-| `environment`     | string | -               | Environment name (e.g., "dev", "staging", "prod")              |
-| `cluster_name`    | string | -               | Name of the AKS cluster                                        |
-| `node_count`      | number | 1               | Number of nodes in the default node pool                       |
-| `vm_size`         | string | Standard_D2s_v3 | VM size for nodes (e.g., "Standard_D2s_v3", "Standard_D4s_v3") |
-| `subscription_id` | string | -               | The Azure Subscription ID                                      |
+| Variable             | Type   | Default         | Description                                                    |
+| -------------------- | ------ | --------------- | -------------------------------------------------------------- |
+| `location`           | string | -               | Azure region for resources (e.g., "East US", "West Europe")    |
+| `environment`        | string | -               | Environment name (e.g., "dev", "staging", "prod")              |
+| `cluster_name`       | string | -               | Name of the AKS cluster                                        |
+| `node_count`         | number | 1               | Number of nodes in the default node pool                       |
+| `vm_size`            | string | Standard_D2s_v3 | VM size for nodes (e.g., "Standard_D2s_v3", "Standard_D4s_v3") |
+| `subscription_id`    | string | -               | The Azure Subscription ID                                      |
+| `kubernetes_version` | string | 1.33            | The version of Kubernetes to use for the AKS cluster           |
 
 ## Outputs
 
@@ -111,11 +114,40 @@ kubectl get nodes
 
 This configuration uses the Azure Provider version `~> 3.0`. For more information, see the [Terraform Azure Provider documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs).
 
+## Kubernetes Version Management
+
+To specify a Kubernetes version for your cluster, you can add a `kubernetes_version` variable to `variables.tf` and configure it in `main.tf`.
+
+**Available Kubernetes versions** can be listed using:
+
+```bash
+az aks get-versions --location <region>
+```
+
+For example:
+
+```bash
+az aks get-versions --location "West Europe"
+```
+
+**To upgrade an existing cluster** to a different Kubernetes version:
+
+1. Add or update the `kubernetes_version` in your `terraform.tfvars`
+2. Run `terraform plan` to review the changes
+3. Run `terraform apply` to perform the upgrade
+
+**Note:** Kubernetes upgrades can cause temporary disruptions. Plan upgrades during maintenance windows and consider:
+
+- Cordon and drain node behavior during upgrades
+- Pod disruption budgets for high-availability workloads
+- Testing upgrades in non-production environments first
+
 ## Best Practices
 
 - **State Management**: Consider using Azure Blob Storage for remote state management in production environments
 - **Naming Conventions**: Follow Azure naming conventions when setting variable values
 - **VM Sizing**: Choose appropriate VM sizes based on your workload requirements
+- **Kubernetes Version**: Pin specific Kubernetes versions in production to prevent unexpected upgrades
 - **Security**: Use Azure RBAC and network policies to secure your cluster
 - **Monitoring**: Enable Azure Monitor integration for cluster monitoring and logging
 
