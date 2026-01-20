@@ -16,7 +16,71 @@ This Terraform module provisions:
 
 - [Terraform](https://www.terraform.io/downloads.html) >= 1.0
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) or Azure credentials configured
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) for interacting with the cluster
 - An Azure subscription
+- Git for cloning the repository
+
+## Getting Started
+
+### Step 1: Clone the Repository
+
+Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/your-org/cybersteps-module-3.git
+```
+
+Replace `your-org` with the actual GitHub organization URL.
+
+### Step 2: Navigate to the Terraform Directory
+
+```bash
+cd cybersteps-module-3/week-5/session-2-advanced-k8s/terraform
+```
+
+### Step 3: Verify Terraform Installation
+
+Ensure Terraform is installed and accessible:
+
+```bash
+terraform --version
+```
+
+You should see a version number >= 1.0.
+
+### Step 4: Verify Azure CLI Installation
+
+Ensure Azure CLI is installed:
+
+```bash
+az --version
+```
+
+### Step 5: Authenticate with Azure
+
+Log in to your Azure account:
+
+```bash
+az login
+```
+
+This will open a browser window for authentication. After logging in, select the appropriate subscription:
+
+```bash
+az account set --subscription <subscription-id>
+```
+
+Replace `<subscription-id>` with your Azure subscription ID.
+
+### Step 6: Verify Your Subscription
+
+List available subscriptions:
+
+```bash
+az account list --output table
+```
+
+Verify the active subscription is correct (marked with `IsDefault: true`)
 
 ## Usage
 
